@@ -1,9 +1,11 @@
 import { createStore } from 'vuex';
+import filterProducts from '../products/filter-products';
 
 const store = createStore({
   state() {
     return {
       user: null,
+      cartItems: [],
       products: [{
         id: '24ab7b14-f935-44c1-b91b-8598123ea54a',
         title: 'Headlight Helmet',
@@ -42,9 +44,22 @@ const store = createStore({
       }],
     };
   },
+  getters: {
+    getFilteredProducts(state) {
+      debugger;
+      return (filter) => filterProducts(filter, state.products);
+    },
+    getCartItems(state) {
+      return state.cartItems;
+    },
+  },
   mutations: {
     setUser(state, user) {
       state.user = user;
+    },
+    addToCart(state, product) {
+      debugger;
+      state.cartItems.push(product);
     },
   },
 });
